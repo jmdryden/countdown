@@ -4,7 +4,8 @@ var intervalHandle;
 
 
 function resetPage() {
-    document.getElementById("inputArea").style.display = "block";
+	window.location.reload(false); //reload from cache, not from server
+    //document.getElementById("inputArea").style.display = "block";
 }
 
 function tick() {
@@ -15,12 +16,13 @@ function tick() {
     var min = Math.floor(secondsRemaining / 60);
     var sec = secondsRemaining - (min * 60);
     
-    // add a leading zero (as a string value) if seconds less than 10
+    // add a leading zero (as a string value) if seconds less than 10	
     if (sec < 10) {
         sec = "0" + sec;
+		
     }
     // concatenate with colon
-    var message = min + ":" + sec;
+    var message = "" + min + ":" + sec;
     // now change the display
     timeDisplay.innerHTML = message;
     
@@ -59,7 +61,17 @@ function startCountdown() {
         pauseCountdown();
     };
 	//Add it to the DOM's pauseArea div:
-	document.getElementById("pauseArea").appendChild(pauseButton);
+	document.getElementById("pauseArea").appendChild(pauseButton);	
+	
+	//setup the restart button
+	var restartButton = document.createElement("input");
+	restartButton.setAttribute("type","button");
+	restartButton.setAttribute("value","Restart");
+	restartButton.setAttribute("id","restartButton");
+	restartButton.onclick = function () {
+		resetPage();
+	}
+	document.getElementById("pauseArea").appendChild(restartButton);
 	
 }
 
@@ -78,7 +90,7 @@ function pauseCountdown() {
 	
 }
 
-// as soon as the page is loaded...
+// as soon as the page is loaded callback for drawing DOM
 window.onload =  function () {
     // create input text box and give it an id of "minutes"
     var inputMinutes = document.createElement("input");
