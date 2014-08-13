@@ -2,7 +2,6 @@
 var secondsRemaining;
 var intervalHandle;
 
-
 function resetPage() {
 	window.location.reload(false); //reload from cache, not from server
     //document.getElementById("inputArea").style.display = "block";
@@ -51,29 +50,30 @@ function startCountdown() {
     // hide the form
     document.getElementById("inputArea").style.display = "none";
 	
-	//set up the pause button
-	var pauseButton = document.createElement("input");
-	pauseButton.setAttribute("type","button");
-	pauseButton.setAttribute("value","Pause");
-	pauseButton.setAttribute("id","pauseButton");
-	//give it the pause event
-	pauseButton.onclick = function () {	 //closure
-        pauseCountdown();
+    //set up the pause button
+    var pauseButton = document.createElement("input");
+    pauseButton.setAttribute("type","button");
+    pauseButton.setAttribute("value","Pause");
+    pauseButton.setAttribute("id","pauseButton");
+    //give it the pause event
+    pauseButton.onclick = function () {	 //closure
+           pauseCountdown();
     };
-	//Add it to the DOM's pauseArea div:
-	document.getElementById("pauseArea").appendChild(pauseButton);	
+    //Add it to the DOM's pauseArea div:
+    document.getElementById("pauseArea").appendChild(pauseButton);	
 	
-	//setup the restart button
-	var restartButton = document.createElement("input");
-	restartButton.setAttribute("type","button");
-	restartButton.setAttribute("value","Restart");
-	restartButton.setAttribute("id","restartButton");
-	restartButton.onclick = function () {
-		resetPage();
-	}
-	document.getElementById("pauseArea").appendChild(restartButton);
+    //setup the restart button
+    var restartButton = document.createElement("input");
+    restartButton.setAttribute("type","button");
+    restartButton.setAttribute("value","Restart");
+    restartButton.setAttribute("id","restartButton");
+    restartButton.onclick = function () { //closure
+        resetPage();
+    }
+    
+    document.getElementById("pauseArea").appendChild(restartButton);
 	
-}
+} //End startCountdown
 
 function pauseCountdown() {
 	var state = document.getElementById("pauseButton").value;		
@@ -81,11 +81,15 @@ function pauseCountdown() {
 		clearInterval(intervalHandle); //stops countdown at secondsRemaining.		
 		var paused = true;
 		if (paused == true) {				
-			document.getElementById("pauseButton").setAttribute("value","Resume");				
+			document.getElementById("pauseButton").setAttribute("value","Resume");	
+                        document.getElementById("time").style.color = "red";
+                        document.getElementById("time").style.opacity = "0.5";
 		}
 	} else { //resume countdown		
 		intervalHandle = setInterval(tick, 1000);
 		document.getElementById("pauseButton").setAttribute("value","Pause");
+                document.getElementById("time").style.color = null;
+                document.getElementById("time").style.opacity = null;
 	}
 	
 }
