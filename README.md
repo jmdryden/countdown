@@ -1,6 +1,7 @@
 # README #
 
 Countdown is just a plaything for testing github import to githubvpn.unm.edu
+Moved to github.com 2/20/2018
 
 ### What is this repository for? ###
 
